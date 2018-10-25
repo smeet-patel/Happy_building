@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html ng-app="info226prj">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <script src="app.js"></script>
+  </head>
+  <body ng-app="info226prj">
+    <div ng-controller="MainContent">
+    <div ng-show="navBar">
+     <ul class="menu">
+  <li><a id="thumbnail"><img ng-click="homeClick()" src="http://i.imgur.com/DoPppOi.png" class="flip" style padding="0" alt="HB" width="90" height="90" border="0" >
+  <span class="caption1">Happy Building</span></a></li>
+  <li><a id="thumbnail"><img ng-click="directoryClick()" src="http://i.imgur.com/SRUmGkk.png" class="flip1" style padding="0" alt="D" width="90" height="90" border="0">
+  <span class="caption">Building Directory</span></a></li>
+  <li><a id="thumbnail"><img src="http://i.imgur.com/p3eoNSe.png" class="flip2" style padding="0" alt="B" width="90" height="90" border="0">
+  <span class="caption">Building Information</span></a></li></a></li>
+  <li><a id="thumbnail"><img ng-click="projectClick()" src="http://i.imgur.com/c3EPZZ6.png" class="flip3" style padding="0" alt="P" width="90" height="90" border="0">
+  <span class="caption">Project Information</span></a></li>
+  <li><a id="thumbnail"><img ng-click="inspecClick()" src="http://i.imgur.com/74F4u1S.png" class="flip4" style padding="0" alt="I" width="90" height="90" border="0">
+  <span class="caption">Inspection Information</span></a></li>
+  <li><a><img ng-click="loginClick()" src="http://i.imgur.com/kytfsqW.png" id="defaultOpen" class="flip5" style padding="0" alt="LO" width="90" height="90" border="0">
+  <span class="caption">Logout &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</br></span></a></li>
+  <li class="bg"></li> <!-- i have no idea what this line is!! --> 
+</ul>
+<br> 
+</div> 
+
+
+<div id="panel5" ng-show="login">
+  <div id="login_container">
+   <h1>Happy Building Login page</h1>
+  <br>
+  <img src=http://i.imgur.com/BnmnNb4.png" style padding="0" alt="HB" width="480" height="480" border="0"><br/><br/>
+  <div ng-bind="feedback" id="feedbacklogin"></div></br>
+  <p>Select type of user:</p>
+  <form> 
+      <label for="Owner">Owner</label>
+      <input id="Owner" type="radio" name="content" ng-model="content" value="Owner">
+      <br />
+      <label for="Manager">Manager</label>
+      <input id="Manager" type="radio" name="content" ng-model="content" value="Manager">
+      <br>
+      <label for="Contractor">Contractor</label>
+      <input id="Contractor" type="radio" name="content" ng-model="content" value="Contractor">
+    </form>
+		 </br>
+    <form id="login_form">
+      <span id="login_fields">
+        <p>Username:</p>
+        <input class="if" type="text" name="username" ng-model="username" /></br></br>
+        <p>password:</p>
+        <input class="if" type="password" name="password" ng-model="password" />
+      </span>
+      <br/><br/> 
+      <div align="center">
+      <span id="login_buttons">
+      <table id="logtable" >
+      <tr><td>
+      <input ng-show="content == 'Owner'" class="log1" type="submit" value="Login" ng-click="clickLogin1()" />
+      <input ng-show="content == 'Manager'" class="can1" type="submit" value="Login" ng-click="clickLogin()" />
+      <input ng-show="content == 'Contractor'" class="log1" type="submit" value="Login" ng-click="clickLogin2()" />
+        </td>
+        <td>
+        <input class="can1" type="submit" value="Cancel" ng-click="clickCancel()" />
+        </td>
+      </table>
+      </span>
+      </div>
+      </br></br>.
+    </form>
+</div>
+</div>
+
+<div id="wrapper" ng-show="wrapper"> 
+      <div id="panel" ng-show="home">
+  <h1>Welcome to Happy Building Dashboard</h1>
+  </br>
+      <h2 ng-show="content == 'Owner'" > You are logged in as Owner</h2>
+      <h2 ng-show="content == 'Manager'" > You are logged in as Manager</h2>
+      <h2 ng-show="content == 'Contractor'" > You are logged in as Contractor</h2>
+      </br></br>
+  <img src="http://i.imgur.com/DoPppOi.png style padding="0" alt="HB" width="480" height="480" border="0">
+  </br>
+  </br>
+  <h2 ng-click="directoryClick()" class="flip11">Go to Directory</h2>
+  </br>
+  </br>
+</div>
+    
+      <div id="panel1" ng-show="directory">
+  </br><h1>Directory</h1>
+  </br></br>
+  <p>Step 1: Search details here:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <input type="text" class="inputstyle1" ng-model="searchText" placeholder="Search ID, Namer, Address"></p>
+      <div class="logins" ng-controller="dir">
+      	<table id="myTable">
+	     <tr> 
+		  <th>ID</th>
+		  <th>Owner</th>
+		  <th>Address</th>
+		  <th>Construction Date</th>
+		 </tr>
+		 <tr ng-repeat="item in myData | filter:searchText">
+		<td>{{item.ID}}</td>
+		  <td>{{item.Owner}}</td>
+		  <td>{{item.Address}}</td>
+		  <td>{{item.ConstructionDate}}</td>
+		 </tr>
+    </table>
+    </div>
+    </br></br><p>Step 2: Please match and select ID number from table</p></br></br>
+  <button><span ng-click="myFilter = {ID: 123};buildingClick()">123</span> </button>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button><span ng-click="myFilter = {ID: 222};buildingClick()">222</span> </button>
+	</br></br></br>
+	<p>or else press create new record text below</p></br></br>
+	<h2 class="flip12" ng-click="myFilter = {ID: null};buildingClick()">Create New Records ></h2> 
+</div>
+  
+ <div id="panel2" ng-show="building">
+  <h1>Building form</h1>
+   <div ng-controller="info1">  
+  	<table>
+    <tr ng-repeat="item in myData |filter:myFilter">
+			<td>UI: </td>
+			<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="ui" placeholder="text" width="absolute" value="{{item.ID}}"></td>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Street Address: </td>
+			<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="address" placeholder="text" value="{{item.Address}}"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Suburb: </td>
+			<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="suburb" placeholder="text" required value="{{item.sub}}"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Postal Code:</td>
+			<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="postalCode" placeholder="text" required value="{{item.pc}}"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter"><tr>
+			<td>Type of Building: </td>
+			<td><form>
+ <select class="inputstyle" name="options" required ng-disabled="content != 'Manager'">	`
+  <option value="blank">{{item.btype}}</option>
+ <option value="agriculture">Agriculture</option>
+ <option value="commercial">Commercial</option>
+ <option value="residential">Residential</option>
+ <option value="medical">Medical</option>
+  <option value="educational">Educational</option>
+ <option value="industrial">Industrial</option>
+ <option value="military">Military</option>
+ <option value="parkingStructureStorages">Parking Structure & Storage</option>
+  <option value="religious">Religious</option>
+ <option value="transport">Transport</option>
+ <option value="Other">Other</option>
+ </select>
+</form></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Year built: </td>
+			<td><input class="inputstyle" type="date" required ng-disabled="content != 'Manager'"></td>
+		</tr>
+		<tr>
+			<td>Year Last Removied:  </td>
+			<td><input class="inputstyle"type="date" required ng-disabled="content != 'Manager'"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Market Value/Sales Price: </td>
+			<td><input class="inputstyle" type="text" name="mktValue" placeholder="text" value="{{item.mv}}" ng-disabled="content != 'Manager'"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Building Size: </td>
+			<td><form>
+ <select class="inputstyle" name="options2" required>
+ <option value="blank">{{item.land}}</option>
+ <option value="size1">1-100 square meter</option>
+  <option value="size2">101-300 square meter</option>
+ <option value="size3">301-600 square meter</option>
+  <option value="size4">601-1,000 square meter</option>
+   <option value="size5">1,001-2,500 square meter</option>
+  <option value="size6">2501 or Larger</option>
+ <option value="Other">Other</option>
+ </select>
+</form></td>
+		</tr>
+	<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Land Area: </td>
+			<td><input class="inputstyle" type="text" name="landArea" ng-disabled="content != 'Manager'" placeholder="text" value="{{item.size}}"></td>
+	</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Number of Floors:  </td>
+			<td><input class="inputstyle" type="text" name="levels" ng-disabled="content != 'Manager'" placeholder="text" value="{{item.floors}}"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Current Use: </td>
+			<td><input class="inputstyle" type="text" name="levels" ng-disabled="content != 'Manager'" placeholder="text" value="{{item.use}}"></td>
+		</tr>
+		<tr>
+			<td>Notes: </td>
+			<td>
+<textarea rows="4" cols="50">
+</textarea></td>
+		</tr>
+	</table>
+ </div> 
+ 
+<h3>Owner Details</h3>
+<div class="center-div">
+  <div ng-controller="info1">
+<table align="center" style="margin: 0px auto;">
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Name: </td>
+			<td><input class="inputstyle" type="text" name="ownerName" ng-disabled="content != 'Manager'" placeholder="text" required required value="{{item.owner}}"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Main Contact Number: </td>
+			<td><input class="inputstyle" type="text" name="contactNumber" ng-disabled="content != 'Manager'" placeholder="text" required value="{{item.number}}"></td>
+		</tr>
+		<tr ng-repeat="item in myData |filter:myFilter">
+			<td>Email Address: </td>
+			<td><input class="inputstyle" type="text" name="contactNumber" ng-disabled="content != 'Manager'" placeholder="text" required value="{{item.email}}"></td> 
+		</tr>
+</table> 
+</div>
+</div>	
+	<input type="submit" value="Edit"> 
+</form> 
+<br><br>
+<h2 class="flip12" ng-click="projectClick()">Go to project form >>></h2><br><br>
+</div>
+   
+ <div id="panel3" ng-show="project">
+  <h1>Project</h1> </br>
+    <h3>Project Status</h3> 
+    <div ng-controller="info1">
+   <table>
+  <tr ng-repeat="item in myData |filter:myFilter"><td>
+  <label>Status:</label> </td>
+  <td><form>
+  <select name="prjStatus" class="inputstyle" ng-disabled="content != 'Manager'">
+ <option value="blank">{{item.Status}}</option>
+ <option value="inProgress">In Progress</option>
+  <option value="onHold">On Hold</option>
+ <option value="completed">Completed</option>
+  <option value="cancelled">Cancelled</option>
+ </select>
+    </div>
+</form></td></tr></table></div>
+ <br>
+  <h3>Project Details:</h3> 
+  <div ng-controller="info1">
+  <table>
+  <tr ng-repeat="item in myData |filter:myFilter"> 
+  <td>Project ID: </td> 
+  <td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="prjID" placeholder="text"  value="{{item.PrjID}}"></td> 
+  </tr> 
+  <tr ng-repeat="item in myData |filter:myFilter"> 
+  <td>Project Name:</td> 
+  <td><input  class="inputstyle"type="text" ng-disabled="content != 'Manager'" name="prjName" placeholder="text" required  value="{{item.Prjtype}}"></td> 
+  </tr>
+  <tr ng-repeat="item in myData |filter:myFilter"> 
+  <td>Project Location: </td> 
+  <td><input class="inputstyle" type="text" ng-disabled="content != 'Manager'" name="prjLocation" placeholder="text" required  value="{{item.Address}}"></td>
+  </tr> 
+  <tr ng-repeat="item in myData |filter:myFilter">
+  <td>Start Date: </td>
+  <td><input class="inputstyle" ng-disabled="content != 'Manager'" type="date" / required ></td> 
+  </tr>
+  <tr ng-repeat="item in myData |filter:myFilter">
+  <td>End Date:</td> 
+  <td><input  class="inputstyle"type="date" / required ng-disabled="content != 'Manager'" ></td> 
+  </tr> 
+  </table> 
+<h3>Contact Details</h3>
+<table> 
+<tr ng-repeat="item in myData |filter:myFilter"> 
+<td>Contact Person: </td>
+<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="contactPerson" placeholder="text" required  value="{{item.owner}}"></td>  
+</tr> 
+<tr ng-repeat="item in myData |filter:myFilter"> 
+<td>Project Manager: </td> 
+<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="prjManager" placeholder="text" required  value="{{item.Prjman}}"></td> 
+</tr> 
+<tr ng-repeat="item in myData |filter:myFilter"> 
+<td>Contractor Name: </td> 
+<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="contractor" placeholder="text" required  value="{{item.coname}}"></td>
+</tr> 
+<tr ng-repeat="item in myData |filter:myFilter"> 
+<td>Contractor Phone Number: </td>
+<td><input class="inputstyle" ng-disabled="content != 'Manager'" type="text" name="contractorPhone" placeholder="text" required  value="{{item.conumber}}"></td> 
+</tr>
+</table> 
+</div>
+	<form id="l1">
+<fieldset>
+	<legend><h2>Contractor's Working Field</h2></legend>
+	<input class="check" type="checkbox" name ="A">
+		Masonry<br>
+	<input class="check" type="checkbox" name="B">
+		Carpentry<br>
+	<input class="check" type="checkbox" name="C">
+		Framing<br>
+	<input class="check" type="checkbox" name="D">
+		Plumber<br>
+	<input class="check" type="checkbox" name ="E">
+		Electrician<br>
+	<input class="check" type="checkbox" name="F">
+		Labourer<br>
+	<input class="check" type="checkbox" name="G">
+		House Painter and Decorater<br>
+	<input class="check" type="checkbox" name="H">
+		Landscaper<br>
+	<input class="check" type="checkbox" name ="I">
+		Welder<br>
+	<input class="check" type="checkbox" name="J">
+		Pipe Fitter<br>
+	<input class="check" type="checkbox" name="K">
+		Site Manager<br>
+	<input class="check" type="checkbox" name="L">
+		Other <input type="text" name="contractorOther" placeholder="text"><br>
+</fieldset>
+</form> 
+<br><br>
+	<h2 class="flip12" ng-click="inspecClick()">View Inspection Information>>></h2> 
+	<br><br>
+<h3><label>Insurance Policy: </label></h3><form action="myform.cgi"> 
+<input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload"></label> <input type="submit" value="submit"> </form></br></br>
+	<table>
+		<tr>
+			<td>Manager Comments:</td>
+			<td>
+<textarea rows="4" cols="50">
+</textarea></td>
+		</tr>
+				<tr>
+			<td>Owner Comments:</td>
+			<td>
+<textarea rows="4" cols="50">
+</textarea></td>
+		</tr>
+				<tr>
+			<td>Contractor Comments:</td>
+			<td>
+<textarea rows="4" cols="50">
+</textarea></td>
+		</tr>
+	</table>
+		<h2 class="flip12" ng-click="buildingClick()"inspecClick()"><<< Back to building inforamtion</h2> 
+<br><br>
+<button>POST to server</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br><br></div>
+ 
+ <div id="panel4" ng-show="inspection">
+  <h1>Inspection</h1></br>
+  <table> 
+  <tr ng-repeat="item in myData |filter:myFilter">
+  <td>Insepction Date: </td> 
+  <td><input ng-disabled="content != 'Manager'" class="inputstyle" type="date" / required></td> 
+  </tr>
+  <tr ng-repeat="item in myData |filter:myFilter">
+  <td>Inspector Name: </td>
+  <td><input class="inputstyle" type="text" ng-disabled="content != 'Manager'" name="inspecName" placeholder="text" required></td>
+  </tr> 
+  <tr ng-repeat="item in myData |filter:myFilter"> 
+  <td>Insepctor Phone Number:</td>
+  <td><input class="inputstyle" type="text" ng-disabled="content != 'Manager'" name="inspecNum" placeholder="text" required></td>
+  </tr> 
+  </table> 
+ 
+  <form id="l1">
+<fieldset>
+<br>
+	<legend><h2>Inspection Criteria</h2></legend>
+	<input class="check" type="checkbox" name ="foundationInspec">
+		Foundation Inspection<br>
+	<input class="check" type="checkbox" name="concreteblockInspec">
+		Concrete Block, concrete reinforcing inspection<br>
+	<input class="check" type="checkbox" name="concretefloorInspec">
+		Concrete floor slap inspection<br>
+	<input class="check" type="checkbox" name="framingInspec">
+		Framing Inspection<br> 
+
+	<input class="check" type="checkbox" name="claddingInspec">
+		Cladding Inspection<br>
+	<input class="check" type="checkbox" name="prelineInspec">
+		Pre-line Building Inspection<br>
+	<input class="check" type="checkbox" name ="plumbingInspec">
+		Plumbing Inspection<br>
+	<input class="check" type="checkbox" name ="postlineInspec">
+		Post-line Inspection<br>	
+	<input class="check" type="checkbox" name="membranetankingInspec">
+		Membrane tanking inspection (external & internal waterproofing<br>
+	<input class="check" type="checkbox" name="drainageInspec">
+		Drainage inspection<br>
+	<input class="check" type="checkbox" name="buildingFinalInspec">
+		Buiilding Final Inspection<br>
+	<input class="check" type="checkbox" name ="otherInspec">
+		Other Inspection(s) <input type="text" name="otherInspec" placeholder="text"><br>
+		</br>
+<label> Additional Notes: </label><br> 
+<textarea rows="4" cols="75">
+</textarea></td>
+</fieldset>
+
+<p>attach files</p>
+<form action="myform.cgi"> <input type="file" name="fileupload" value="fileupload" id="fileupload"> <label for="fileupload"></label> <input type="submit" value="submit"> </form>
+</form> 
+</br>
+<button>View Permit Information</button></br></br>
+<button>View Contract</button></br></br>
+<h2 class="flip12" ng-click="projectClick()"><<< Go back to project form</h2><br><br>
+</div>
+</div> 
+</div>
+  </body>
+
+</html>
